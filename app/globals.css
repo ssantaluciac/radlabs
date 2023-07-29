@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Paytone+One");
+@import url('https://fonts.googleapis.com/css2?family=Outfit&family=Prompt:wght@400;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -11,7 +11,8 @@
 }
 
 body {
-  font-family: Paytone One;
+  font-family: Prompt, sans-serif;
+  font-weight: 400;
 }
 
 .main {
@@ -22,10 +23,11 @@ body {
   height: 100%;
   background-size: fill;
   background-repeat: no-repeat;
+  
 }
 
 .background {
-  background-color: #160017;
+  background-color: #150017;
 }
 
 .paddings {

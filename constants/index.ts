@@ -1,11 +1,37 @@
 export const socials = [
-    {
-        name: 'twitter',
-        url: '/twitter.svg',
-      },
-      {
-        name: 'instagram',
-        url: '/instagram.svg',
-      },
+  {
+    name: 'openSea',
+    url: '/openSea.png',
+  },
+  {
+    name: 'twitter',
+    url: '/twitter.png',
+  },
 
-];   
+];
+
+export const mainButtons = [
+  {
+    name: 'AQUI SESSION',
+    url: '/',
+  },
+  {
+    name: 'RULES',
+    url: '/',
+  },
+  {
+    name: 'TERMS',
+    url: '/',
+  },
+];
+
+export const footerButtons = [
+  {
+    name: 'Jackpot',
+    url: '/jackPot.png',
+  },
+  {
+    name: 'Burn',
+    url: '/burn.png',
+  },
+];

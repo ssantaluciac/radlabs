@@ -14,7 +14,7 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
     optimism,
     arbitrum,
     zora,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
+    ...(process.env.ALQUEMY_API_KEY === 'true' ? [goerli] : []),
   ],
   [publicProvider()]
 );
@@ -50,7 +50,7 @@ const wagmiConfig = createConfig({
   webSocketPublicClient,
 });
 
-const Providers = ({ children }: {children: React.ReactNode }) => {
+const RainbowKitProviders = ({ children }: {children: React.ReactNode }) => {
     const [mounted, setMoutned] = React.useState(false);
     React.useEffect(() => setMoutned(true), []);
 
@@ -73,4 +73,4 @@ const Providers = ({ children }: {children: React.ReactNode }) => {
     );
 }
 
-export default Providers
+export default RainbowKitProviders
