@@ -13,21 +13,8 @@
 body {
   font-family: Prompt, sans-serif;
   font-weight: 400;
-}
-
-.main {
-  content: "";
-  background-image: url("/background.svg");
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-size: fill;
-  background-repeat: no-repeat;
-  
-}
-
-.background {
-  background-color: #150017;
+  height: 100vh;
+  background: linear-gradient(to bottom, #150017, #000000);
 }
 
 .paddings {
@@ -46,6 +33,16 @@ body {
   @apply text-white;
 }
 
+/* Fonts */
+.font_1 {
+  font-family: Prompt, sans-serif;
+}
+
+.font_2 {
+  font-family: Outfit, sans-serif;
+}
+
+/* buttons */
 .yellow_btn {
   @apply rounded-full border border-primary_yellow bg-primary_yellow py-1.5 px-5 text-black transition-all hover:bg-white hover:text-black hover:border-white text-center text-[25px] flex items-center justify-center;
 }

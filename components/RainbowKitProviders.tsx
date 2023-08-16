@@ -1,76 +1,61 @@
 'use client'
 
-import * as React from 'react';
-import { RainbowKitProvider, getDefaultWallets, connectorsForWallets, darkTheme} from '@rainbow-me/rainbowkit';
-import { argentWallet, trustWallet, ledgerWallet,} from '@rainbow-me/rainbowkit/wallets';
+import '@rainbow-me/rainbowkit/styles.css';
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+  darkTheme,
+} from '@rainbow-me/rainbowkit';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import { mainnet, polygon, optimism, arbitrum, zora, goerli,} from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
+import {
+  mainnet,
+  polygon,
+  optimism,
+  arbitrum
+} from 'wagmi/chains';
+import { RainbowKitSiweNextAuthProvider } from '@rainbow-me/rainbowkit-siwe-next-auth';
+import type { Session } from 'next-auth';
+import { SessionProvider } from 'next-auth/react';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
 
-const { chains, publicClient, webSocketPublicClient } = configureChains(
+const { chains, publicClient } = configureChains(
+  [mainnet, polygon, optimism, arbitrum],
   [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    zora,
-    ...(process.env.ALQUEMY_API_KEY === 'true' ? [goerli] : []),
-  ],
-  [publicProvider()]
+    alchemyProvider({ apiKey: process.env.ALQUEMY_API_KEY || '' })
+  ]
 );
-
-const projectId = 'YOUR_PROJECT_ID';
-
-const { wallets } = getDefaultWallets({
-  appName: 'RainbowKit demo',
-  projectId,
-  chains,
+const { connectors } = getDefaultWallets({
+  appName: 'My RainbowKit App',
+  projectId: process.env.WALLET_CONNECT_PROJECT_ID || '92748e72aafbc2d74b7f70f64de89d38',
+  chains
 });
-
-const demoAppInfo = {
-  appName: 'Rainbowkit Demo',
-};
-
-const connectors = connectorsForWallets([
-  ...wallets,
-  {
-    groupName: 'Other',
-    wallets: [
-      argentWallet({ projectId, chains }),
-      trustWallet({ projectId, chains }),
-      ledgerWallet({ projectId, chains }),
-    ],
-  },
-]);
-
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  publicClient,
-  webSocketPublicClient,
-});
+  publicClient
+})
 
-const RainbowKitProviders = ({ children }: {children: React.ReactNode }) => {
-    const [mounted, setMoutned] = React.useState(false);
-    React.useEffect(() => setMoutned(true), []);
-
+const RainbowKitProviders = ({ children, session }: { children: React.ReactNode, session: Session | null }) => {
     return (
         <WagmiConfig config={wagmiConfig}>
-            <RainbowKitProvider
-              chains={chains}
-              appInfo={demoAppInfo}
-              theme={darkTheme({
-                accentColor: '#F0B000',
-                accentColorForeground: 'black',
-                borderRadius: 'large',
-                fontStack: 'system',
-                overlayBlur: 'small',
-              })}
-              >
-                {mounted && children}
-            </RainbowKitProvider>
+          <SessionProvider refetchInterval={0} session={session}>
+            <RainbowKitSiweNextAuthProvider>
+              <RainbowKitProvider
+                chains={chains}
+                theme={darkTheme({
+                  accentColor: '#F0B000',
+                  accentColorForeground: 'black',
+                  borderRadius: 'large',
+                  fontStack: 'system',
+                  overlayBlur: 'small',
+                })}
+                >
+                  {children}
+              </RainbowKitProvider>
+            </RainbowKitSiweNextAuthProvider>
+          </SessionProvider>
         </WagmiConfig>
     );
-}
+};
 
 export default RainbowKitProviders

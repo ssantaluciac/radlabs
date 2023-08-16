@@ -12,10 +12,6 @@ export const socials = [
 
 export const mainButtons = [
   {
-    name: 'AQUI SESSION',
-    url: '/',
-  },
-  {
     name: 'RULES',
     url: '/',
   },

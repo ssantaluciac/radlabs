@@ -1,7 +1,8 @@
 import './globals.css'
+import type { Metadata } from 'next';
+import type { Session } from 'next-auth';
 import '@rainbow-me/rainbowkit/styles.css';
 import RainbowKitProviders from '../components/RainbowKitProviders';
-import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Radlabs',
@@ -9,15 +10,18 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({
-  children,
+  children, session
 }: {
-  children: React.ReactNode
-}){
+  children: React.ReactNode, session: Session | null
+}) {
   return (
     <html lang="en">
-      <body className="background">
+      <head>
+        <link rel="icon" href="/favicon.ico/" sizes="any" />
+      </head>
+      <body>
         <main>
-          <RainbowKitProviders>
+          <RainbowKitProviders session={session}>
             {children}
           </RainbowKitProviders>
         </main>
