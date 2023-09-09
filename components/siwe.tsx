@@ -2,12 +2,12 @@
 
 import { SiweMessage } from "siwe"
 import { getCsrfToken, signIn } from "next-auth/react"
-import { useAccount, useConnect, useNetwork, useSignMessage } from "wagmi"
+import { useAccount, useNetwork, useSignMessage } from "wagmi"
 
 const Siwe = () => {
   const { signMessageAsync } = useSignMessage();
   const { chain } = useNetwork();
-  const { address, isConnected } = useAccount();
+  const { address } = useAccount();
 
   const handleLogin = async () => {
     try {

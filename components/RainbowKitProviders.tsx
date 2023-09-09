@@ -21,12 +21,12 @@ import { alchemyProvider } from 'wagmi/providers/alchemy';
 const { chains, publicClient } = configureChains(
   [mainnet, polygon, optimism, arbitrum],
   [
-    alchemyProvider({ apiKey: process.env.ALQUEMY_API_KEY || '' })
+    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALQUEMY_API_KEY || '' })
   ]
 );
 const { connectors } = getDefaultWallets({
   appName: 'My RainbowKit App',
-  projectId: process.env.WALLET_CONNECT_PROJECT_ID || '92748e72aafbc2d74b7f70f64de89d38',
+  projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID || '',
   chains
 });
 const wagmiConfig = createConfig({
